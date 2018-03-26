@@ -65,12 +65,19 @@ function randomFace() {
    var rHair = Math.floor(Math.random() * Math.floor(3)+1); 
    var rEyes = Math.floor(Math.random() * Math.floor(3)+1); 
    var rNose = Math.floor(Math.random() * Math.floor(3)+1); 
-   var rMouth = Math.floor(Math.random() * Math.floor(3)+1); 
+   var rMouth = Math.floor(Math.random() * Math.floor(3)+1);
+   
+   var r = Math.floor(Math.random()* 255);
+   var g = Math.floor(Math.random()* 255);
+   var b = Math.floor(Math.random()* 255);
+    
+   var rColor = "rgb("+r+","+g+","+b+")";
     
     hair.src = "img/hair"+rHair+".png";
     eyes.src = "img/eyes"+rEyes+".png";
     nose.src = "img/nose"+rNose+".png";
     mouth.src = "img/mouth"+rMouth+".png";
+    previewBox.style.backgroundColor = rColor;
     
    var rwHair = Math.floor(Math.random() * Math.floor(71)); 
    var rwEyes = Math.floor(Math.random() * Math.floor(41)); 
@@ -87,7 +94,7 @@ function randomFace() {
     nose.style.width = range3.value+"%";
     mouth.style.width = range4.value+"%";
 }
-
+    var counter = 1;
 function createFace() {
     var newDiv = document.createElement("div");
     newDiv.style.width = "100px";
@@ -95,10 +102,10 @@ function createFace() {
     newDiv.style.backgroundColor = previewBox.style.backgroundColor;
     newDiv.style.position = "relative";
     newDiv.style.display = "inline-block";
-
+    newDiv.id = counter;
+    counter++;
     
     var newHair = document.createElement("img");
-    
     newHair.src = hair.src;
     newHair.width = hair.width/2;
     newHair.style.top = "0%";
@@ -131,8 +138,15 @@ function createFace() {
     newDiv.appendChild(newNose);
     newDiv.appendChild(newMouth);
     document.getElementById("display").appendChild(newDiv);
+    
+    newDiv.addEventListener("click", function() {
+       removeDiv(newDiv.id);
+    });
 }
 
+function removeDiv(id) {
+    document.getElementById(id).remove();
+}
 function changeType(type) {
     range1.type = type;
     range2.type = type;
